@@ -1,8 +1,10 @@
 fastapi==0.139.0
 uvicorn==0.51.0
-gunicorn==23.2.0
+gunicorn==23.0.0
+python-dotenv==1.1.1
 sqlalchemy==2.0.51
 passlib[bcrypt]==1.7.4
 python-jose[cryptography]==3.5.0
 pydantic==2.13.4
 python-multipart
+httpx2

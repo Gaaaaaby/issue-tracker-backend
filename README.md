@@ -23,6 +23,34 @@ cd backend
 
 Abre `http://localhost:8000/docs`, usa `POST /token` con `admin / Admin123!`, copia el token y pulsa `Authorize` para probar los endpoints seguros.
 
+## Variables de entorno
+
+Puedes usar un archivo `.env` local con estas variables:
+
+```env
+SECRET_KEY=change_this_secret_key_for_production
+ACCESS_TOKEN_EXPIRE_MINUTES=60
+DB_URL=sqlite:///./issues.db
+BACKEND_CORS_ORIGINS=http://localhost:4200,https://localhost:4200
+```
+
+Railway y otros entornos pueden establecer `SECRET_KEY`, `ACCESS_TOKEN_EXPIRE_MINUTES`, `DB_URL` y `BACKEND_CORS_ORIGINS` desde sus variables de entorno.
+
+## Railway
+
+Ya existe `railway.json` con:
+
+```json
+{
+  "build": {
+    "builder": "NIXPACKS"
+  },
+  "deploy": {
+    "startCommand": "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+  }
+}
+```
+
 ## App Engine
 
 Incluye `app.yaml` para desplegar con `gcloud app deploy app.yaml`.

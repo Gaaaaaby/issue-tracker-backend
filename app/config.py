@@ -1,8 +1,14 @@
+import os
 from datetime import timedelta
 
-SECRET_KEY = "change_this_secret_key_for_production"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
+from dotenv import load_dotenv
 
-DB_URL = "sqlite:///./issues.db"
+load_dotenv()
+
+SECRET_KEY = os.getenv("SECRET_KEY", "change_this_secret_key_for_production")
+ALGORITHM = os.getenv("ALGORITHM", "HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "60"))
+
+DB_URL = os.getenv("DB_URL", "sqlite:///./issues.db")
+BACKEND_CORS_ORIGINS = [origin.strip() for origin in os.getenv("BACKEND_CORS_ORIGINS", "http://localhost:4200,https://localhost:4200").split(",") if origin.strip()]
 TOKEN_EXPIRE = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)

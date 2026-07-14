@@ -1,14 +1,22 @@
 from fastapi import Depends, FastAPI, HTTPException, Security, status, Query
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from . import models, schemas, crud
 from .database import SessionLocal, engine
 from .auth import create_access_token, decode_access_token, get_password_hash
-from .config import ACCESS_TOKEN_EXPIRE_MINUTES
+from .config import ACCESS_TOKEN_EXPIRE_MINUTES, BACKEND_CORS_ORIGINS
 
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Issue Tracker API")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=BACKEND_CORS_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
